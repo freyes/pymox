@@ -16,7 +16,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from six.moves import cStringIO
+from six.moves import StringIO
 import unittest
 import re
 import sys
@@ -393,9 +393,9 @@ class IsATest(unittest.TestCase):
     self.failIf(isa_list == mixed_list)
 
   def testSpecialTypes(self):
-    """Verify that IsA can handle objects like cStringIO.StringIO."""
-    isA = mox.IsA(cStringIO.StringIO())
-    stringIO = cStringIO.StringIO()
+    """Verify that IsA can handle objects like StringIO."""
+    isA = mox.IsA(StringIO())
+    stringIO = StringIO()
     self.assert_(isA == stringIO)
 
 
