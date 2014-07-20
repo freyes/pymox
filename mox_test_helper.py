@@ -25,6 +25,7 @@ mox_test.py test suite.
 See mox_test.MoxTestBaseTest for how this class is actually used.
 """
 
+import six
 import os
 
 import mox
@@ -121,12 +122,10 @@ class CallableClass(object):
 try:
   import abc
 
-  class MyDictABC(object):
-    __metaclass__ = abc.ABCMeta
+  class MyDictABC(type):
+    pass
 
-  MyDictABC.register(dict)
-
-  class CallableSubclassOfMyDictABC(MyDictABC):
+  class CallableSubclassOfMyDictABC(six.with_metaclass(MyDictABC, dict)):
 
     def __call__(self, one):
       return 'Not mock'
