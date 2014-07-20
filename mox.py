@@ -223,7 +223,7 @@ class UnexpectedMockCreationError(Error):
 
     if self._named_params:
       error += ", " + ", ".join(["%s=%s" % (k, v) for k, v in
-                                 self._named_params.iteritems()])
+                                 six.iteritems(self._named_params)])
 
     error += ")"
     return error
@@ -1018,7 +1018,7 @@ class MethodSignatureChecker(object):
       self._RecordArgumentGiven(arg_name, arg_status)
 
     # Ensure all the required arguments have been given.
-    still_needed = [k for k, v in arg_status.iteritems()
+    still_needed = [k for k, v in six.iteritems(arg_status)
                     if v == MethodSignatureChecker._NEEDED]
     if still_needed:
       raise AttributeError('No values given for arguments: %s'
