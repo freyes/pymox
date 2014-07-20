@@ -125,7 +125,7 @@ class FuncTest(unittest.TestCase):
 
     def raiseExceptionOnNotOne(value):
       if value != 1:
-        raise TestException
+        raise TestException()
       else:
         return True
 
@@ -1819,7 +1819,7 @@ class MoxTest(unittest.TestCase):
       if value == 1:
         return True
       else:
-        raise TestException
+        raise TestException()
 
     test_obj = TestClass()
     self.mox.StubOutWithMock(test_obj, 'MethodWithArgs')
@@ -2482,7 +2482,7 @@ class ClassWithProperties(object):
 
 class SubscribtableNonIterableClass(object):
   def __getitem__(self, index):
-    raise IndexError
+    raise IndexError()
 
 
 class InheritsFromCallable(CallableClass):
