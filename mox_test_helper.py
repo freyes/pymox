@@ -122,10 +122,13 @@ class CallableClass(object):
 try:
   import abc
 
-  class MyDictABC(type):
+  @six.add_metaclass(abc.ABCMeta)
+  class MyDictABC(object):
     pass
 
-  class CallableSubclassOfMyDictABC(six.with_metaclass(MyDictABC, dict)):
+  MyDictABC.register(dict)
+
+  class CallableSubclassOfMyDictABC(MyDictABC):
 
     def __call__(self, one):
       return 'Not mock'

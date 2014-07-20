@@ -409,7 +409,8 @@ class Mox(object):
                       'call UnsetStubs in your previous test?')
 
     if attr_type not in self._USE_MOCK_FACTORY:
-      raise TypeError('Given attr is not a Class.  Use StubOutWithMock.')
+      raise TypeError('Given attr is not a Class.'
+                      'Use StubOutWithMock. (%s)' % attr_type)
 
     factory = _MockObjectFactory(attr_to_replace, self)
     self._mock_objects.append(factory)
