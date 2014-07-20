@@ -1321,7 +1321,7 @@ class Comparator:
       rhs: any python object
     """
 
-    raise NotImplementedError, 'method must be implemented by a subclass.'
+    raise NotImplementedError('method must be implemented by a subclass.')
 
   def __eq__(self, rhs):
     return self.equals(rhs)
@@ -1914,13 +1914,13 @@ class MethodGroup(object):
     return '<%s "%s">' % (self.__class__.__name__, self._group_name)
 
   def AddMethod(self, mock_method):
-    raise NotImplementedError
+    raise NotImplementedError()
 
   def MethodCalled(self, mock_method):
-    raise NotImplementedError
+    raise NotImplementedError()
 
   def IsSatisfied(self):
-    raise NotImplementedError
+    raise NotImplementedError()
 
 class UnorderedGroup(MethodGroup):
   """UnorderedGroup holds a set of method calls that may occur in any order.
