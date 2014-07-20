@@ -66,6 +66,7 @@ try:
 except ImportError:
   abc = None  # Python 2.5 and earlier
 from collections import deque
+import six
 import difflib
 import inspect
 import re
@@ -252,18 +253,28 @@ class SwallowedExceptionError(Error):
     return "Previous exceptions thrown:\n%s" % (exceptions,)
 
 
+if six.PY3:
+  _use_mock_object = [type, types.FunctionType,
+                       types.ModuleType, types.MethodType,
+                      ]
+  _use_mock_factory = [type]
+else:
+  _use_mock_object = [types.ClassType, types.FunctionType, types.InstanceType,
+                       types.ModuleType, types.ObjectType, types.TypeType,
+                       types.MethodType, types.UnboundMethodType,
+                       ]
+  _use_mock_factory = [types.ClassType, types.ObjectType, types.TypeType]
+
+
 class Mox(object):
   """Mox: a factory for creating mock objects."""
 
   # A list of types that should be stubbed out with MockObjects (as
   # opposed to MockAnythings).
-  _USE_MOCK_OBJECT = [types.ClassType, types.FunctionType, types.InstanceType,
-                      types.ModuleType, types.ObjectType, types.TypeType,
-                      types.MethodType, types.UnboundMethodType,
-                      ]
+  _USE_MOCK_OBJECT = _use_mock_object
 
   # A list of types that may be stubbed out with a MockObjectFactory.
-  _USE_MOCK_FACTORY = [types.ClassType, types.ObjectType, types.TypeType]
+  _USE_MOCK_FACTORY = _use_mock_factory
   if abc:
     _USE_MOCK_FACTORY.append(abc.ABCMeta)
 
