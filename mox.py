@@ -919,6 +919,15 @@ class MethodSignatureChecker(object):
                        % (method,))
     if inspect.ismethod(method):
       self._args = self._args[1:]  # Skip 'self'.
+    else:
+      try:
+        # in python 3 there is no unobund methods, they are just functions
+        # or bound methods, see http://bugs.python.org/issue16851
+        if six.PY3 and self._args[0] == 'self':
+          self._args = self._args[1:]  # Skip 'self'
+      except IndexError:
+        pass
+
     self._method = method
     self._instance = None  # May contain the instance this is bound to.
 
